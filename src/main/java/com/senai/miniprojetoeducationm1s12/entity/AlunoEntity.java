@@ -3,20 +3,19 @@ package com.senai.miniprojetoeducationm1s12.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @Entity
-@Table(name = "disciplina")
-public class DisciplinaEntity {
+@Table(name = "aluno")
+public class AlunoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
-    private ProfessorEntity professor;
+    private LocalDate nascimento;
 
 }
