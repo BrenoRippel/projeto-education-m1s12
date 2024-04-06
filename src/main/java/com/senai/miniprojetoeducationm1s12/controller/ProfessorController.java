@@ -36,13 +36,13 @@ public class ProfessorController {
     public ResponseEntity<ProfessorEntity> getId(@PathVariable Long id) {
         log.info("GET /professores/{} -> Início", id);
 
-        ProfessorEntity professor = service.buscarPorId(id);
+        ProfessorEntity entity = service.buscarPorId(id);
         log.info("GET /professores/{} -> Encontrado", id);
 
         log.info("GET /professores/{} -> 200 OK", id);
-        log.debug("GET /professores/{} -> Response Body:\n{}\n", id, JsonUtil.objectToJson(professor));
+        log.debug("GET /professores/{} -> Response Body:\n{}\n", id, JsonUtil.objectToJson(entity));
 
-        return ResponseEntity.ok(professor);
+        return ResponseEntity.ok(entity);
     }
 
     @PostMapping
