@@ -1,6 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.exceptions;
 
-import com.senai.fullstack.education.m1s11.exceptions.error.NotFountException;
+import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFountException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
