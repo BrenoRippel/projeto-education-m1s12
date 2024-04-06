@@ -10,13 +10,13 @@ import lombok.Data;
 public class DisciplinaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String nome;
 
-    @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
-    private ProfessorEntity professor;
+//    @ManyToOne
+//    @JoinColumn(name = "professor_id", nullable = false)
+//    private ProfessorEntity professor;
 }

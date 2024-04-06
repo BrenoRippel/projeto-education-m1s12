@@ -32,9 +32,14 @@ public class DisciplinaServiceImpl implements DisciplinaService {
     }
 
     @Override
-    public DisciplinaEntity alter(Long id, DisciplinaEntity entity) {
-        repository.deleteById(id);
-        entity.setId(id);
+    public DisciplinaEntity alter(Long id, DisciplinaEntity entityData) {
+        DisciplinaEntity foundEntity = findById(id);
+        return setEntity(foundEntity, entityData);
+    }
+
+    private DisciplinaEntity setEntity(DisciplinaEntity entity, DisciplinaEntity entityData) {
+        entity.setNome(entityData.getNome());
+//        entity.setProfessor(entityData.getProfessor());
         return repository.save(entity);
     }
 
