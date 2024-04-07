@@ -27,7 +27,7 @@ public class ProfessorServiceImpl implements ProfessorService{
         log.info("Buscando todos os professores -> {} Encontrados", entities.size());
 
         log.debug("Buscando todos os professores -> Registros encontrados:\n{}\n", JsonUtil.objectToJson(entities));
-        return repository.findAll();
+        return entities;
     }
 
     @Override

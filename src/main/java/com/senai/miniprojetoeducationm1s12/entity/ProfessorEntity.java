@@ -10,7 +10,6 @@ import lombok.Data;
 public class ProfessorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "professor_id")
     private Long id;
 
     private String nome;
