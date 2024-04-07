@@ -1,7 +1,7 @@
 package com.senai.miniprojetoeducationm1s12.service;
 
 import com.senai.miniprojetoeducationm1s12.entity.AlunoEntity;
-import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFountException;
+import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFoundException;
 import com.senai.miniprojetoeducationm1s12.repository.AlunoRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class AlunoServiceImpl implements AlunoService {
 
         if (aluno.isEmpty()) {
             log.error("Buscando aluno por id ({}) -> Não foi encontrado!", id);
-            throw new NotFountException("Aluno ID:" + id + " não encontrado!");
+            throw new NotFoundException("Aluno ID:" + id + " não encontrado!");
         }
 
         log.info("Buscando aluno por id ({}) -> Encontrado", id);
@@ -56,17 +56,16 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public AlunoEntity alterar(Long id, AlunoEntity entity) {
+    public AlunoEntity alterar(Long id, AlunoEntity aluno) {
         log.info("Buscando aluno de ID: ", id);
-        AlunoEntity aluno = buscarPorId(id);
-        aluno.setNome(entity.getNome());
-        aluno.setNascimento(entity.getNascimento());
+        buscarPorId(id);
+        aluno.setId(id);
 
-        log.info("Atualizando aluno com id ({}) -> Salvar: \n{}\n", id, JsonUtil.objectToJson(entity));
-        aluno = alunoRepository.save(entity);
+        log.info("Atualizando aluno com id ({}) -> Salvar: \n{}\n", id, JsonUtil.objectToJson(aluno));
+        aluno = alunoRepository.save(aluno);
 
         log.info("Atualizando aluno -> Salvo com sucesso");
-        log.debug("Atualizando aluno -> Registro Salvo: \n{}\n", JsonUtil.objectToJson(entity));
+        log.debug("Atualizando aluno -> Registro Salvo: \n{}\n", JsonUtil.objectToJson(aluno));
         return aluno;
     }
 

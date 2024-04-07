@@ -57,7 +57,7 @@ public class MatriculaServiceImpl implements MatriculaService{
     @Override
     public MatriculaEntity criar(Long idAluno, Long idDisciplina) {
         MatriculaEntity entity = null;
-        AlunoEntity aluno = repositoryAluno.findById(idAluno);
+        AlunoEntity aluno = repositoryAluno.buscarPorId(idAluno);
         DisciplinaEntity disciplina = repositoryDisciplina.findById(idDisciplina);
 
         entity.setAluno(aluno);

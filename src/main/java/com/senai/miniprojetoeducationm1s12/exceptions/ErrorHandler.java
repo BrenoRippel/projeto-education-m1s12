@@ -1,6 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.exceptions;
 
-import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFountException;
+import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class ErrorHandler {
         return ResponseEntity.internalServerError().body(e.getMessage());
     }
 
-    @ExceptionHandler(NotFountException.class)
-    public ResponseEntity<?> handler(NotFountException e) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handler(NotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 }
