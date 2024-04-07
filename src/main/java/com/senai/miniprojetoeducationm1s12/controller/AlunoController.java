@@ -50,7 +50,7 @@ public class AlunoController {
     @PostMapping
     public ResponseEntity<AlunoEntity> post(@RequestBody AlunoEntity request) {
         log.info("POST /alunos");
-
+        System.out.println(request);
         AlunoEntity aluno = alunoService.criar(request);
         log.info("POST /alunos -> Cadastrado");
 
