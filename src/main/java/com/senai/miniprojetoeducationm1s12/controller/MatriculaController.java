@@ -60,6 +60,11 @@ public class MatriculaController {
         return ResponseEntity.ok(entity);
     }
 
+    @GetMapping("alunos/{id}/media-notas")
+    public ResponseEntity<List> getIdMediaNotas(@PathVariable Long id) {
+        return ResponseEntity.ok(service.calcularMatriculaPorAluno());
+    }
+
     @PostMapping
     public ResponseEntity<MatriculaEntity> post(@RequestBody MatriculaFiltro matriculaFiltro) {
         log.info("POST /matrículas");

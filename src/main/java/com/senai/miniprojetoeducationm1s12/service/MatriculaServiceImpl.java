@@ -1,5 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.service;
 
+import com.senai.miniprojetoeducationm1s12.dto.MediaGeralDatas;
 import com.senai.miniprojetoeducationm1s12.entity.AlunoEntity;
 import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
@@ -8,8 +9,8 @@ import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,5 +116,17 @@ public class MatriculaServiceImpl implements MatriculaService{
 
         repository.delete(entity);
         log.info("Excluindo matrícula com id ({}) -> Excluído com sucesso", id);
+    }
+
+    public List<MediaGeralDatas> calcularMatriculaPorAluno(Long id) {
+        List<MediaGeralDatas> dtoList = new ArrayList<>();
+        List<MatriculaEntity> matriculas = buscarAlunoPorId(id);
+        for (MatriculaEntity matricula : matriculas) {
+            MediaGeralDatas dto = new MediaGeralDatas();
+            dto.setDisciplina(matricula.getDisciplina().getNome());
+// TODO: Terminar código e ajuste de DTO
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 }
