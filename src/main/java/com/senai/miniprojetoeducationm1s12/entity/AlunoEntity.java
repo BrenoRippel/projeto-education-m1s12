@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Entity
@@ -22,6 +23,6 @@ public class AlunoEntity {
 
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate nascimento;
+    private Date nascimento;
 
 }

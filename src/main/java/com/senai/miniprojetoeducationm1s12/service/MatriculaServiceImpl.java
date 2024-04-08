@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,12 +59,15 @@ public class MatriculaServiceImpl implements MatriculaService{
 
     @Override
     public MatriculaEntity criar(Long idAluno, Long idDisciplina) {
-        MatriculaEntity entity = null;
+        MatriculaEntity entity = new MatriculaEntity();
         AlunoEntity aluno = repositoryAluno.buscarPorId(idAluno);
         DisciplinaEntity disciplina = repositoryDisciplina.findById(idDisciplina);
+        Date data = new Date();
 
         entity.setAluno(aluno);
         entity.setDisciplina(disciplina);
+        entity.setDataMatricula(Date.from(data.toInstant()));
+        entity.setMediaFinal(0.0);
 
         log.info("Criando matrícula -> Salvar: \n{}\n", JsonUtil.objectToJson(entity));
         MatriculaEntity matricula = repository.save(entity);
