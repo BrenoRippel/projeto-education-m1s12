@@ -2,11 +2,13 @@ package com.senai.miniprojetoeducationm1s12.service;
 
 import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.repository.DisciplinaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class DisciplinaServiceImpl implements DisciplinaService {
 
@@ -18,6 +20,7 @@ public class DisciplinaServiceImpl implements DisciplinaService {
 
     @Override
     public Optional<DisciplinaEntity> get(Long id) {
+        log.info("SERVICE /disciplina -> Buscando por ID: {}", id);
         return repository.findById(id);
     }
 
