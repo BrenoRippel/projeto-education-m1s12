@@ -57,7 +57,7 @@ public class AlunoServiceImpl implements AlunoService {
 
     @Override
     public AlunoEntity alterar(Long id, AlunoEntity aluno) {
-        log.info("Buscando aluno de ID: ", id);
+        log.info("Buscando aluno de ID: {}", id);
         buscarPorId(id);
         aluno.setId(id);
 

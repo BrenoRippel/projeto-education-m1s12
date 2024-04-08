@@ -1,6 +1,10 @@
 package com.senai.miniprojetoeducationm1s12.entity;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,10 +26,12 @@ public class MatriculaEntity {
     @JoinColumn(name = "disciplina_id", nullable = false)
     private DisciplinaEntity disciplina;
 
-    @Column(name = "data_matricula", nullable = false)
+    @Column(name = "data_matricula")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private Date dataMatricula;
 
     @Column(name = "media_final", nullable = false)
-    private Float mediaFinal;
+    private Double mediaFinal;
 
 }
