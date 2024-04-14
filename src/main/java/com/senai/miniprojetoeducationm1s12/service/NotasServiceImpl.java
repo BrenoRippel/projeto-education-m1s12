@@ -41,23 +41,16 @@ public class NotasServiceImpl implements NotasService {
 
     @Override
     public NotasEntity criar(NotasEntity notas) {
-        return null;
+        log.info("Salvando nota -> Salvar: \n{}\n", JsonUtil.objectToJson(notas));
+        NotasEntity entity = notasRepository.save(notas);
+
+        log.info("Salvando nota -> Salvo com sucesso");
+        log.debug("Salvando nota -> Registro Salvo: \n{}\n", JsonUtil.objectToJson(entity));
+        return entity;
     }
 
     @Override
     public void excluir(Long id) {
 
     }
-
-//    @Override
-//    public NotasEntity salvar(NotasEntity notas) {
-//        log.info("Salvando nota -> Salvar: \n{}\n", JsonUtil.objectToJson(notas));
-//
-//        NotasEntity nota = notasRepository.save(notas);
-////        nota.setProfessor();
-////        nota.setDisciplina();
-//        log.info("Salvando nota -> Salvo com sucesso");
-//        log.debug("Salvando nota -> Nota cadastrado: \n{}\n", JsonUtil.objectToJson(notas));
-//        return nota;
-//    }
 }

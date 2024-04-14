@@ -12,7 +12,7 @@ public class NotasEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "matricula_id", nullable = false)
+    @JoinColumn(name = "disciplina_matricula_id", nullable = false)
     private MatriculaEntity matricula;
 
     @ManyToOne
