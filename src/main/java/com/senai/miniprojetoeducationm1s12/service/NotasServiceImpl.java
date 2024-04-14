@@ -1,5 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.service;
 
+import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.ErrorHandler;
@@ -31,6 +32,12 @@ public class NotasServiceImpl implements NotasService {
 
         return notasRepository.findAllByMatriculaId(matricula.getId());
     }
+
+//    public List<NotasEntity> getNotasByDisciplinaId(Long disciplinaId) {
+//        DisciplinaEntity disciplina = notasRepository.findById(disciplinaId)
+//                .orElseThrow(() -> new ErrorHandler.ResourceNotFoundException("Nota de id: "+ disciplinaId +" não encontrado"));
+//        return notasRepository.findAllByDisciplinaId(disciplina.getId());
+//    }
 
     @Override
     public NotasEntity criar(NotasEntity notas) {

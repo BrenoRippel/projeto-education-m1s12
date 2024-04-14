@@ -4,6 +4,7 @@ import com.senai.miniprojetoeducationm1s12.dto.MediaGeralDatas;
 import com.senai.miniprojetoeducationm1s12.entity.AlunoEntity;
 import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
+import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.error.MatriculaByIdNotFoundException;
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
@@ -21,11 +22,13 @@ public class MatriculaServiceImpl implements MatriculaService{
     private final MatriculaRepository repository;
     private final AlunoServiceImpl repositoryAluno;
     private final DisciplinaServiceImpl repositoryDisciplina;
+    private final NotasServiceImpl serviceNotas;
 
-    public MatriculaServiceImpl(MatriculaRepository repository, AlunoServiceImpl repositoryAluno, DisciplinaServiceImpl repositoryDisciplina) {
+    public MatriculaServiceImpl(MatriculaRepository repository, AlunoServiceImpl repositoryAluno, DisciplinaServiceImpl repositoryDisciplina, NotasServiceImpl serviceNotas) {
         this.repository = repository;
         this.repositoryAluno = repositoryAluno;
         this.repositoryDisciplina = repositoryDisciplina;
+        this.serviceNotas = serviceNotas;
     }
 
 
@@ -129,6 +132,7 @@ public class MatriculaServiceImpl implements MatriculaService{
             MediaGeralDatas dto = new MediaGeralDatas();
             DisciplinaEntity disciplina = matricula.getDisciplina();
             dto.setDisciplina(disciplina.getNome());
+            List<NotasEntity> notasMatricula = serviceNotas.getNotasByMatriculaId(matricula.getId());
 
 // TODO: Terminar código e ajuste de DTO
             dtoList.add(dto);
