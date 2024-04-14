@@ -40,7 +40,28 @@ public class NotasServiceImpl implements NotasService {
 
         log.info("Salvando nota -> Salvo com sucesso");
         log.debug("Salvando nota -> Registro Salvo: \n{}\n", JsonUtil.objectToJson(entity));
+
+        MatriculaEntity matricula = entity.getMatricula();
+        List<NotasEntity> notasMatricula = getNotasByMatriculaId(matricula.getId());
+
+        Float mediaFinalMatricula = calcularMediaFinal(notasMatricula);
+
+        matricula.setMediaFinal(mediaFinalMatricula);
+        matriculaRepository.save(matricula);
+
         return entity;
+    }
+
+    private float calcularMediaFinal(List<NotasEntity> notas) {
+        float soma = 0;
+        float somaCoeficientes = 0;
+
+        for (NotasEntity nota : notas) {
+            soma += nota.getNota() * nota.getCoeficiente();
+            somaCoeficientes += nota.getCoeficiente();
+        }
+
+        return soma / (somaCoeficientes == 0 ? 1 : somaCoeficientes);
     }
 
     @Override

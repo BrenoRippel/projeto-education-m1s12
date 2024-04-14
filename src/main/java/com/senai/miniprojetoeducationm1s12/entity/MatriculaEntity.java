@@ -33,6 +33,6 @@ public class MatriculaEntity {
     private LocalDate dataMatricula;
 
     @Column(name = "media_final", nullable = false)
-    private Double mediaFinal;
+    private Float mediaFinal;
 
 }
