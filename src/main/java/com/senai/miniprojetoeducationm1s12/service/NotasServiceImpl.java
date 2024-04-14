@@ -82,6 +82,7 @@ public class NotasServiceImpl implements NotasService {
     @Override
     public void excluir(Long id) {
         NotasEntity entity = buscarPorId(id);
+
         log.info("Excluindo nota com id ({}) -> Excluindo", id);
 
         notasRepository.delete(entity);
