@@ -23,6 +23,6 @@ public class AlunoEntity {
 
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private Date nascimento;
+    private LocalDate nascimento;
 
 }

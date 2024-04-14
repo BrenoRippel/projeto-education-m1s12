@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -29,9 +30,9 @@ public class MatriculaEntity {
     @Column(name = "data_matricula")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private Date dataMatricula;
+    private LocalDate dataMatricula;
 
     @Column(name = "media_final", nullable = false)
-    private Double mediaFinal;
+    private Float mediaFinal;
 
 }
