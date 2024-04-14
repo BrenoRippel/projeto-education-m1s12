@@ -12,8 +12,8 @@ public class NotasEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "disciplina_matricula", nullable = false)
-    private DisciplinaEntity disciplina;
+    @JoinColumn(name = "matricula_id", nullable = false)
+    private MatriculaEntity matricula;
 
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)
