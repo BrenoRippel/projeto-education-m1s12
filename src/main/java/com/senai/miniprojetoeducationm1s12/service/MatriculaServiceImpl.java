@@ -7,6 +7,7 @@ import com.senai.miniprojetoeducationm1s12.exceptions.error.MatriculaByIdNotFoun
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -62,11 +63,11 @@ public class MatriculaServiceImpl implements MatriculaService{
         MatriculaEntity entity = new MatriculaEntity();
         AlunoEntity aluno = repositoryAluno.buscarPorId(idAluno);
         DisciplinaEntity disciplina = repositoryDisciplina.findById(idDisciplina);
-        Date data = new Date();
+        LocalDate dataAtual = LocalDate.now();
 
         entity.setAluno(aluno);
         entity.setDisciplina(disciplina);
-        entity.setDataMatricula(Date.from(data.toInstant()));
+        entity.setDataMatricula(dataAtual);
         entity.setMediaFinal(0.0);
 
         log.info("Criando matrícula -> Salvar: \n{}\n", JsonUtil.objectToJson(entity));

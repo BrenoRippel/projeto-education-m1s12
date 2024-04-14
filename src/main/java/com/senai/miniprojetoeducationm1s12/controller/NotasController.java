@@ -1,5 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.controller;
 
+import com.senai.miniprojetoeducationm1s12.dto.NotaFiltro;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFoundException;
@@ -34,27 +35,27 @@ public class NotasController {
     }
 
     @PostMapping
-    public ResponseEntity<NotasEntity> adicionarNota(@RequestBody NotasEntity request) {
+    public ResponseEntity<NotasEntity> adicionarNota(@RequestBody NotaFiltro request) {
         log.info("Buscando matricula por id");
 
-        Optional<MatriculaEntity> matricula = matriculaRepository.findById(request.getMatricula().getId());
+        Optional<MatriculaEntity> matricula = matriculaRepository.findById(request.matricula_id());
 
         if (matricula.isEmpty()) {
-            log.error("Buscando matricula por id ({}) -> Não foi encontrado!", request.getMatricula().getId());
-            throw new NotFoundException("Matricula ID:" + request.getMatricula().getId() + " não encontrado!");
+            log.error("Buscando matricula por id ({}) -> Não foi encontrado!", request.matricula_id());
+            throw new NotFoundException("Matricula ID:" + request.matricula_id() + " não encontrado!");
         }
 
         NotasEntity novaNota = new NotasEntity();
 
         novaNota.setMatricula(matricula.get());
         novaNota.setProfessor(matricula.get().getDisciplina().getProfessor());
-        novaNota.setNota(request.getNota());
-        novaNota.setCoeficiente(request.getCoeficiente());
+        novaNota.setNota(request.nota());
+        novaNota.setCoeficiente(request.coeficiente());
         notasServiceImpl.criar(novaNota);
 
         // Calcular a media final na matricula feature card 7 depende
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaNota);
     }
 
     private double calcularMediaFinal(List<NotasEntity> notas) {
