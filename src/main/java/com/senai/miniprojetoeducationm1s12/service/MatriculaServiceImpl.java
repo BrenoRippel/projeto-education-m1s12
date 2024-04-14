@@ -4,7 +4,6 @@ import com.senai.miniprojetoeducationm1s12.dto.MediaGeralFiltro;
 import com.senai.miniprojetoeducationm1s12.entity.AlunoEntity;
 import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
-import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.error.MatriculaByIdNotFoundException;
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
@@ -82,7 +81,7 @@ public class MatriculaServiceImpl implements MatriculaService{
     @Override
     public List<MatriculaEntity> buscarPorAlunoId(Long idAluno) {
         log.info("Buscando matrículas por id de aluno ({})", idAluno);
-        List<MatriculaEntity> entities = repository.findAllByAlunoId(idAluno);
+        List<MatriculaEntity> entities = repository.findAllByIdAluno(idAluno);
 
         if (entities.isEmpty()) {
             log.error("Buscando matrículas por id de aluno ({}) -> NÃO Encontrado", idAluno);

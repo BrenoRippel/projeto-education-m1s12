@@ -19,7 +19,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Slf4j
 @RestController
-@RequestMapping("/notas")
+@RequestMapping("notas")
 public class NotasController {
     private final NotasServiceImpl notasServiceImpl;
     private final MatriculaRepository matriculaRepository;

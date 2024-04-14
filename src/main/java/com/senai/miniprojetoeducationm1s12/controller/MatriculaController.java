@@ -61,8 +61,8 @@ public class MatriculaController {
         return ResponseEntity.ok(entity);
     }
 
-    @GetMapping("alunos/{id}/media-notas")
-    public ResponseEntity<List<MediaGeralFiltro>> getIdMediaNotas(@PathVariable Long id) {
+    @GetMapping("alunos/{id}/media-geral")
+    public ResponseEntity<List<MediaGeralFiltro>> getMediaNotas(@PathVariable Long id) {
         return ResponseEntity.ok(service.getMediasFinaisByAlunoId(id));
     }
 

@@ -1,7 +1,3 @@
----- ALTER TABLE disciplina_matricula
-----     ALTER COLUMN data_matricula SET DATA TYPE DATE
-----     USING data_matricula::date;
---
 --INSERT INTO Aluno (nome, nascimento)
 --VALUES ('João Silva', '2000-05-15'),
 --       ('Maria Oliveira', '1999-10-20'),
