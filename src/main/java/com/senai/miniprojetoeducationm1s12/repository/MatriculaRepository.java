@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MatriculaRepository extends JpaRepository<MatriculaEntity, Long> {
-    List<MatriculaEntity> findAllByAlunoId(Long idAluno);
+    List<MatriculaEntity> findAllByIdAluno(Long idAluno);
     List<MatriculaEntity> findAllByDisciplinaId(Long idDisciplina);
 }

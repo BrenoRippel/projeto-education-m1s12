@@ -1,5 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.service;
 
+import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.ErrorHandler;

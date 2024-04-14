@@ -34,13 +34,9 @@ CREATE TABLE IF NOT EXISTS Notas
 (
     id                      BIGSERIAL PRIMARY KEY,
     professor_id            BIGINT         NOT NULL,
+    disciplina_matricula_id BIGINT         NOT NULL,
     nota                    NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
     coeficiente             NUMERIC(19, 6) NOT NULL DEFAULT 0.00,
-    FOREIGN KEY (professor_id) REFERENCES Professor (id)
+    FOREIGN KEY (professor_id) REFERENCES Professor (id),
+    FOREIGN KEY (disciplina_matricula_id) REFERENCES Disciplina_matricula (id)
 );
-
--- ALTER TABLE Notas
---     ADD COLUMN disciplina_matricula_id BIGINT NOT NULL;
---
--- ALTER TABLE Notas
---     ADD CONSTRAINT disciplina_matricula_id_fkey FOREIGN KEY (disciplina_matricula_id) REFERENCES Disciplina_matricula (id);

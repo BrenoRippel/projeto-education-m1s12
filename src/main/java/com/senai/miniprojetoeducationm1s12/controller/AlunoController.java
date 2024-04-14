@@ -5,6 +5,7 @@ import com.senai.miniprojetoeducationm1s12.entity.ProfessorEntity;
 import com.senai.miniprojetoeducationm1s12.service.AlunoServiceImpl;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,7 @@
 package com.senai.miniprojetoeducationm1s12.controller;
 
 import com.senai.miniprojetoeducationm1s12.dto.MatriculaFiltro;
+import com.senai.miniprojetoeducationm1s12.dto.MediaGeralFiltro;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.service.MatriculaServiceImpl;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
@@ -38,7 +39,7 @@ public class MatriculaController {
     public ResponseEntity<List<MatriculaEntity>> getIdAluno(@PathVariable Long id) {
         log.info("GET /matrículas/aluno/{} -> Início", id);
 
-        List<MatriculaEntity> entity = service.buscarAlunoPorId(id);
+        List<MatriculaEntity> entity = service.buscarPorAlunoId(id);
         log.info("GET /matrículas/aluno/{} -> Encontrado", id);
 
         log.info("GET /matrículas/aluno/{} -> 200 OK", id);
@@ -58,6 +59,11 @@ public class MatriculaController {
         log.debug("GET /matrículas/disciplina/{} -> Response Body:\n{}\n", id, JsonUtil.objectToJson(entity));
 
         return ResponseEntity.ok(entity);
+    }
+
+    @GetMapping("alunos/{id}/media-geral")
+    public ResponseEntity<List<MediaGeralFiltro>> getMediaNotas(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getMediasFinaisByAlunoId(id));
     }
 
     @PostMapping
