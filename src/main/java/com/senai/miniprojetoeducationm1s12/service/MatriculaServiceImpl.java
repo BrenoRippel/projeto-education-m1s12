@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -126,18 +127,29 @@ public class MatriculaServiceImpl implements MatriculaService{
         log.info("Excluindo matrícula com id ({}) -> Excluído com sucesso", id);
     }
 
-    public List<MediaGeralDatas> calcularMatriculaPorAluno(Long id) {
-        List<MediaGeralDatas> dtoList = new ArrayList<>();
-        List<MatriculaEntity> matriculas = buscarPorAlunoId(id);
-        for (MatriculaEntity matricula : matriculas) {
-            MediaGeralDatas dto = new MediaGeralDatas();
-            DisciplinaEntity disciplina = matricula.getDisciplina();
-            dto.setDisciplina(disciplina.getNome());
-            List<NotasEntity> notasMatricula = serviceNotas.getNotasByMatriculaId(matricula.getId());
+//
+//    mediaFinal
+//    size
+//    (mediaFinal*size + notaAtual)/(size+1)
 
-// TODO: Terminar código e ajuste de DTO
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }
+
+//    public List<MediaGeralDatas> calcularMediaFinalPorAlunoId(Long id) {
+//        List<MediaGeralDatas> dtoList = new ArrayList<>();
+//        List<MatriculaEntity> matriculas = buscarPorAlunoId(id);
+//    }
+//
+//    public List<MediaGeralDatas> calcularMatriculaPorAlunoId(Long id) {
+//        List<MediaGeralDatas> dtoList = new ArrayList<>();
+//        List<MatriculaEntity> matriculas = buscarPorAlunoId(id);
+//        for (MatriculaEntity matricula : matriculas) {
+//            MediaGeralDatas dto = new MediaGeralDatas();
+//            DisciplinaEntity disciplina = matricula.getDisciplina();
+//            dto.setDisciplina(disciplina.getNome());
+//            List<NotasEntity> notasMatricula = serviceNotas.getNotasByMatriculaId(matricula.getId());
+//            for (NotasEntity nota : notasMatricula)
+//// TODO: Terminar código e ajuste de DTO
+//            dtoList.add(dto);
+//        }
+//        return dtoList;
+//    }
 }

@@ -33,12 +33,6 @@ public class NotasServiceImpl implements NotasService {
         return notasRepository.findAllByMatriculaId(matricula.getId());
     }
 
-//    public List<NotasEntity> getNotasByDisciplinaId(Long disciplinaId) {
-//        DisciplinaEntity disciplina = notasRepository.findById(disciplinaId)
-//                .orElseThrow(() -> new ErrorHandler.ResourceNotFoundException("Nota de id: "+ disciplinaId +" não encontrado"));
-//        return notasRepository.findAllByDisciplinaId(disciplina.getId());
-//    }
-
     @Override
     public NotasEntity criar(NotasEntity notas) {
         log.info("Salvando nota -> Salvar: \n{}\n", JsonUtil.objectToJson(notas));
