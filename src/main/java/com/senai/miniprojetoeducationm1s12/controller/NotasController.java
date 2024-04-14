@@ -53,19 +53,7 @@ public class NotasController {
         novaNota.setCoeficiente(request.coeficiente());
         notasServiceImpl.criar(novaNota);
 
-        // Calcular a media final na matricula feature card 7 depende
-
         return ResponseEntity.status(HttpStatus.CREATED).body(novaNota);
-    }
-
-    private double calcularMediaFinal(List<NotasEntity> notas) {
-        double soma = 0;
-        double somaCoeficientes = 0;
-        for (NotasEntity nota : notas) {
-            soma += nota.getNota() * nota.getCoeficiente();
-            somaCoeficientes += nota.getCoeficiente();
-        }
-        return soma / somaCoeficientes;
     }
 
 }
