@@ -81,7 +81,7 @@ public class MatriculaServiceImpl implements MatriculaService{
     @Override
     public List<MatriculaEntity> buscarPorAlunoId(Long idAluno) {
         log.info("Buscando matrículas por id de aluno ({})", idAluno);
-        List<MatriculaEntity> entities = repository.findAllByIdAluno(idAluno);
+        List<MatriculaEntity> entities = repository.findAllByAlunoId(idAluno);
 
         if (entities.isEmpty()) {
             log.error("Buscando matrículas por id de aluno ({}) -> NÃO Encontrado", idAluno);
