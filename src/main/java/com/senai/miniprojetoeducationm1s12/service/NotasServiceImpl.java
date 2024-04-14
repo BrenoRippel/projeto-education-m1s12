@@ -3,7 +3,8 @@ package com.senai.miniprojetoeducationm1s12.service;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.ErrorHandler;
-import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFoundException;
+import com.senai.miniprojetoeducationm1s12.exceptions.error.MatriculaByIdNotFoundException;
+import com.senai.miniprojetoeducationm1s12.exceptions.error.NotaByIdNotFoundException;
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.repository.NotasRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
@@ -25,11 +26,26 @@ public class NotasServiceImpl implements NotasService {
     }
 
     @Override
-    public List<NotasEntity> getNotasByMatriculaId(Long matriculaId) {
+    public List<NotasEntity> buscarTodasPorMatriculaId(Long matriculaId) {
         MatriculaEntity matricula = matriculaRepository.findById(matriculaId)
                 .orElseThrow(() -> new ErrorHandler.ResourceNotFoundException("Matricula de id: " + matriculaId + " não encontrado"));
 
         return notasRepository.findAllByMatriculaId(matricula.getId());
+    }
+
+    @Override
+    public NotasEntity buscarPorId(Long id) {
+        log.info("Buscando nota por id ({})", id);
+        Optional<NotasEntity> entity = notasRepository.findById(id);
+
+        if (entity.isEmpty()) {
+            log.error("Buscando nota por id ({}) -> NÃO Encontrado", id);
+            throw new NotaByIdNotFoundException(id);
+        }
+
+        log.info("Buscando nota por id ({}) -> Encontrado", id);
+        log.debug("Buscando nota por id ({}) -> Registro encontrado:\n{}\n", id, JsonUtil.objectToJson(entity.get()));
+        return entity.get();
     }
 
     @Override
@@ -39,11 +55,44 @@ public class NotasServiceImpl implements NotasService {
 
         log.info("Salvando nota -> Salvo com sucesso");
         log.debug("Salvando nota -> Registro Salvo: \n{}\n", JsonUtil.objectToJson(entity));
+
+        MatriculaEntity matricula = entity.getMatricula();
+        List<NotasEntity> notasMatricula = buscarTodasPorMatriculaId(matricula.getId());
+
+        Float mediaFinalMatricula = calcularMediaFinal(notasMatricula);
+
+        matricula.setMediaFinal(mediaFinalMatricula);
+        matriculaRepository.save(matricula);
+
         return entity;
+    }
+
+    private float calcularMediaFinal(List<NotasEntity> notas) {
+        float soma = 0;
+        float somaCoeficientes = 0;
+
+        for (NotasEntity nota : notas) {
+            soma += nota.getNota() * nota.getCoeficiente();
+            somaCoeficientes += nota.getCoeficiente();
+        }
+
+        return soma / (somaCoeficientes == 0 ? 1 : somaCoeficientes);
     }
 
     @Override
     public void excluir(Long id) {
+        NotasEntity entity = buscarPorId(id);
+        log.info("Excluindo nota com id ({}) -> Excluindo", id);
 
+        notasRepository.delete(entity);
+        log.info("Excluindo nota com id ({}) -> Excluído com sucesso", id);
+
+        MatriculaEntity matricula = entity.getMatricula();
+        List<NotasEntity> notasMatricula = buscarTodasPorMatriculaId(matricula.getId());
+
+        Float mediaFinalMatricula = calcularMediaFinal(notasMatricula);
+
+        matricula.setMediaFinal(mediaFinalMatricula);
+        matriculaRepository.save(matricula);
     }
 }

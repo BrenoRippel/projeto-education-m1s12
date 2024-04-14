@@ -6,6 +6,7 @@ import com.senai.miniprojetoeducationm1s12.entity.NotasEntity;
 import com.senai.miniprojetoeducationm1s12.exceptions.error.NotFoundException;
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.service.NotasServiceImpl;
+import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +29,14 @@ public class NotasController {
         this.matriculaRepository = matriculaRepository;
     }
 
-    @GetMapping("/notas/{matriculaId}")
-    public ResponseEntity<List<NotasEntity>> getNotasByMatriculaId(@PathVariable Long matriculaId) {
-        List<NotasEntity> notas = notasServiceImpl.getNotasByMatriculaId(matriculaId);
-        return ResponseEntity.ok(notas);
+    @GetMapping("{id}")
+    public ResponseEntity<List<NotasEntity>> getNotasByMatriculaId(@PathVariable Long id) {
+        log.info("GET /notas/{} -> Início", id);
+        List<NotasEntity> entity = notasServiceImpl.buscarTodasPorMatriculaId(id);
+        log.debug("GET /notas/{} -> Response Body:\n{}\n", id, JsonUtil.objectToJson(entity));
+
+        log.info("GET /notas/{} -> 200 OK", id);
+        return ResponseEntity.ok(entity);
     }
 
     @PostMapping
@@ -53,19 +58,17 @@ public class NotasController {
         novaNota.setCoeficiente(request.coeficiente());
         notasServiceImpl.criar(novaNota);
 
-        // Calcular a media final na matricula feature card 7 depende
-
         return ResponseEntity.status(HttpStatus.CREATED).body(novaNota);
     }
 
-    private double calcularMediaFinal(List<NotasEntity> notas) {
-        double soma = 0;
-        double somaCoeficientes = 0;
-        for (NotasEntity nota : notas) {
-            soma += nota.getNota() * nota.getCoeficiente();
-            somaCoeficientes += nota.getCoeficiente();
-        }
-        return soma / somaCoeficientes;
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("DELETE /notas/{}", id);
+        notasServiceImpl.excluir(id);
+
+        log.info("DELETE /notas/{} -> Excluído", id);
+        log.info("DELETE /notas/{} -> 204 NO CONTENT", id);
+        return ResponseEntity.noContent().build();
     }
 
 }

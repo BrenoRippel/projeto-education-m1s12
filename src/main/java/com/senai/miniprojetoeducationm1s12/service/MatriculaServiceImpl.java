@@ -68,7 +68,7 @@ public class MatriculaServiceImpl implements MatriculaService{
         entity.setAluno(aluno);
         entity.setDisciplina(disciplina);
         entity.setDataMatricula(dataAtual);
-        entity.setMediaFinal(0.0);
+        entity.setMediaFinal(0.0F);
 
         log.info("Criando matrícula -> Salvar: \n{}\n", JsonUtil.objectToJson(entity));
         MatriculaEntity matricula = repository.save(entity);
