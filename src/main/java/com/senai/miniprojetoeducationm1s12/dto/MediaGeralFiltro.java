@@ -3,7 +3,7 @@ package com.senai.miniprojetoeducationm1s12.dto;
 import lombok.Data;
 
 @Data
-public class MediaGeralDatas {
+public class MediaGeralFiltro {
     private String disciplina;
-    private Integer mediaFinal;
+    private Float mediaFinal;
 }

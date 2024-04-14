@@ -1,7 +1,7 @@
 package com.senai.miniprojetoeducationm1s12.controller;
 
 import com.senai.miniprojetoeducationm1s12.dto.MatriculaFiltro;
-import com.senai.miniprojetoeducationm1s12.dto.MediaGeralDatas;
+import com.senai.miniprojetoeducationm1s12.dto.MediaGeralFiltro;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
 import com.senai.miniprojetoeducationm1s12.service.MatriculaServiceImpl;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
@@ -62,8 +62,8 @@ public class MatriculaController {
     }
 
     @GetMapping("alunos/{id}/media-notas")
-    public ResponseEntity<List<MediaGeralDatas>> getIdMediaNotas(@PathVariable Long id) {
-        return ResponseEntity.ok(service.calcularMatriculaPorAluno(id));
+    public ResponseEntity<List<MediaGeralFiltro>> getIdMediaNotas(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getMediasFinaisByAlunoId(id));
     }
 
     @PostMapping

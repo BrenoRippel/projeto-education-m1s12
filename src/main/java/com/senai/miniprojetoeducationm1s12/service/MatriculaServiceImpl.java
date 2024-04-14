@@ -1,6 +1,6 @@
 package com.senai.miniprojetoeducationm1s12.service;
 
-import com.senai.miniprojetoeducationm1s12.dto.MediaGeralDatas;
+import com.senai.miniprojetoeducationm1s12.dto.MediaGeralFiltro;
 import com.senai.miniprojetoeducationm1s12.entity.AlunoEntity;
 import com.senai.miniprojetoeducationm1s12.entity.DisciplinaEntity;
 import com.senai.miniprojetoeducationm1s12.entity.MatriculaEntity;
@@ -9,12 +9,10 @@ import com.senai.miniprojetoeducationm1s12.exceptions.error.MatriculaByIdNotFoun
 import com.senai.miniprojetoeducationm1s12.repository.MatriculaRepository;
 import com.senai.miniprojetoeducationm1s12.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,11 +125,33 @@ public class MatriculaServiceImpl implements MatriculaService{
         log.info("Excluindo matrícula com id ({}) -> Excluído com sucesso", id);
     }
 
-//
-//    mediaFinal
-//    size
-//    (mediaFinal*size + notaAtual)/(size+1)
+    public List<MediaGeralFiltro> getMediasFinaisByAlunoId(Long id) {
+        List<MediaGeralFiltro> dtoList = new ArrayList<>();
+        List<MatriculaEntity> matriculas = buscarPorAlunoId(id);
 
+        for (MatriculaEntity matricula : matriculas) {
+            MediaGeralFiltro dto = new MediaGeralFiltro();
+            dto.setDisciplina(matricula.getDisciplina().getNome());
+            dto.setMediaFinal(matricula.getMediaFinal());
+            dtoList.add(dto);
+        }
+        MediaGeralFiltro dto = new MediaGeralFiltro();
+        dto.setDisciplina("Média Geral");
+
+        dto.setMediaFinal(calcularMediaGeral(matriculas));
+        dtoList.add(dto);
+        return dtoList;
+    }
+
+    public Float calcularMediaGeral(List<MatriculaEntity> matriculas) {
+        float soma = 0;
+
+        for (MatriculaEntity matricula : matriculas) {
+            soma += matricula.getMediaFinal();
+        }
+
+        return matriculas.isEmpty() ? 0 : (soma / matriculas.size());
+    }
 
 //    public List<MediaGeralDatas> calcularMediaFinalPorAlunoId(Long id) {
 //        List<MediaGeralDatas> dtoList = new ArrayList<>();
