@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +77,7 @@ public class MatriculaServiceImpl implements MatriculaService{
     }
 
     @Override
-    public List<MatriculaEntity> buscarAlunoPorId(Long idAluno) {
+    public List<MatriculaEntity> buscarPorAlunoId(Long idAluno) {
         log.info("Buscando matrículas por id de aluno ({})", idAluno);
         List<MatriculaEntity> entities = repository.findAllByAlunoId(idAluno);
 
@@ -126,10 +124,12 @@ public class MatriculaServiceImpl implements MatriculaService{
 
     public List<MediaGeralDatas> calcularMatriculaPorAluno(Long id) {
         List<MediaGeralDatas> dtoList = new ArrayList<>();
-        List<MatriculaEntity> matriculas = buscarAlunoPorId(id);
+        List<MatriculaEntity> matriculas = buscarPorAlunoId(id);
         for (MatriculaEntity matricula : matriculas) {
             MediaGeralDatas dto = new MediaGeralDatas();
-            dto.setDisciplina(matricula.getDisciplina().getNome());
+            DisciplinaEntity disciplina = matricula.getDisciplina();
+            dto.setDisciplina(disciplina.getNome());
+
 // TODO: Terminar código e ajuste de DTO
             dtoList.add(dto);
         }

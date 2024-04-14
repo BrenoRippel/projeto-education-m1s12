@@ -8,7 +8,7 @@ public interface MatriculaService {
     List<MatriculaEntity> buscarTodos();
     MatriculaEntity buscarPorId(Long id);
     MatriculaEntity criar(Long idAluno, Long idDisciplina);
-    List<MatriculaEntity> buscarAlunoPorId(Long idAluno);
+    List<MatriculaEntity> buscarPorAlunoId(Long idAluno);
     List<MatriculaEntity> buscarDisciplinaPorId(Long idDisciplina);
     void excluir(Long id);
 }
